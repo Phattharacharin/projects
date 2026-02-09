@@ -1,0 +1,210 @@
+
+        body {
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            font-family: 'Kanit', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 50px 40px;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 350px;
+            text-align: center;
+        }
+
+        .logo-circle {
+            background-color: #4a90e2;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 25px;
+            color: white;
+            font-size: 3em;
+            box-shadow: 0 10px 20px rgba(74, 144, 226, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .form-title {
+            color: #333;
+            font-size: 1.6em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .otp-destination {
+            background-color: #e3f2fd;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #4a90e2;
+        }
+
+        .otp-destination i {
+            color: #4a90e2;
+            margin-right: 8px;
+        }
+
+        .otp-destination strong {
+            color: #1976d2;
+            word-break: break-all;
+        }
+
+        .otp-input-container {
+            margin: 30px 0;
+        }
+
+        .otp-input {
+            width: 100%;
+            max-width: 300px;
+            padding: 20px;
+            font-size: 2.5em;
+            text-align: center;
+            letter-spacing: 15px;
+            border: 3px solid #e0e0e0;
+            border-radius: 12px;
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+        }
+
+        .otp-input:focus {
+            outline: none;
+            border-color: #4a90e2;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(74, 144, 226, 0.2);
+        }
+
+        .demo-otp-box {
+            background-color: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            display: none;
+        }
+
+        .demo-otp-box .label {
+            color: #856404;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .demo-otp-box .otp-code {
+            color: #856404;
+            font-size: 2em;
+            font-weight: bold;
+            letter-spacing: 5px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Kanit', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn.primary {
+            background-color: #4a90e2;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .btn.primary:hover:not(:disabled) {
+            background-color: #357abd;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+        }
+
+        .btn.primary:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .btn.secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .btn.secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .resend-section {
+            margin-top: 20px;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .resend-btn {
+            color: #4a90e2;
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .resend-btn:hover {
+            text-decoration: underline;
+        }
+
+        .resend-btn.disabled {
+            color: #ccc;
+            cursor: not-allowed;
+        }
+
+        #status-msg {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            display: none;
+        }
+
+        .error {
+            background-color: #ffe6e6;
+            color: #d32f2f;
+            display: block;
+        }
+
+        .success {
+            background-color: #e6f7e6;
+            color: #2e7d32;
+            display: block;
+        }
+
+        .timer {
+            color: #f44336;
+            font-weight: bold;
+        }

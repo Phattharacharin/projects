@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ยืนยันรหัส OTP | คลินิกทันตกรรม</title>
+    <link rel="stylesheet" href="verify.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   
+</head>
+<body>
+
+    <div class="container">
+        <div class="logo-circle">
+            <i class="fas fa-lock"></i>
+        </div>
+
+        <h2 class="form-title">ยืนยันรหัส OTP</h2>
+        <p class="subtitle">
+            กรุณากรอกรหัส 6 หลักที่ส่งไปยัง
+        </p>
+
+        <div class="otp-destination">
+            <i class="fas fa-paper-plane" id="destination-icon"></i>
+            <strong id="destination-text">กำลังโหลด...</strong>
+        </div>
+
+        <!-- แสดง OTP สำหรับทดสอบ -->
+        <div id="demo-otp-box" class="demo-otp-box">
+            <div class="label">🧪 <strong>โหมดทดสอบ</strong></div>
+            <div class="otp-code" id="demo-otp-code">------</div>
+            <div style="margin-top: 10px; font-size: 0.85em; color: #856404;">
+                กรอกรหัสด้านบนเพื่อทดสอบระบบ
+            </div>
+        </div>
+
+        <div class="otp-input-container">
+            <input type="text" 
+                   id="otp-input" 
+                   class="otp-input"
+                   maxlength="6" 
+                   placeholder="------"
+                   autocomplete="off"
+                   inputmode="numeric">
+        </div>
+
+        <button class="btn primary" id="verify-btn" onclick="verifyOTP()">
+            <i class="fas fa-check-circle"></i> ยืนยันรหัส OTP
+        </button>
+
+        <button class="btn secondary" onclick="goBack()">
+            <i class="fas fa-arrow-left"></i> ย้อนกลับ
+        </button>
+
+        <div class="resend-section">
+            ไม่ได้รับรหัส? 
+            <a class="resend-btn" id="resend-btn" onclick="resendOTP()">
+                ส่งรหัสใหม่อีกครั้ง <span class="timer" id="timer"></span>
+            </a>
+        </div>
+
+        <p id="status-msg"></p>
+    </div>
+ <script>
+const params = new URLSearchParams(window.location.search);
+const email = params.get('email');
+
+async function verifyOTP() {
+  const otp = document.getElementById('otp-input').value;
+
+  if (!otp || !email) {
+    alert('ข้อมูลไม่ครบ');
+    return;
+  }
+
+  try {
+    const res = await fetch('http://localhost:3000/verify-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, otp })
+    });
+
+    const text = await res.text();
+
+    if (res.ok) {
+      alert('✅ ยืนยันสำเร็จ');
+      window.location.href = 'login.html';
+    } else {
+      alert('❌ ' + text);
+    }
+  } catch {
+    alert('❌ ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์');
+  }
+}
+
+async function resendOTP() {
+  if (!email) {
+    alert('ไม่พบอีเมล');
+    return;
+  }
+
+  try {
+    const res = await fetch('http://localhost:3000/send-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    });
+
+    const text = await res.text();
+
+    if (!res.ok) {
+      alert('❌ ' + text);
+      return;
+    }
+
+    alert('✅ ส่ง OTP ใหม่แล้ว กรุณาตรวจสอบอีเมล');
+
+  } catch {
+    alert('❌ ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์');
+  }
+}
+
+function goBack() {
+  window.history.back();
+}
+</script>
+
+</body>
+</html>
+</body>
+</html>

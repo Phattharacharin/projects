@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เข้าสู่ระบบ | คลินิกทันตกรรม</title>
+    <link rel="stylesheet" href="login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   
+</head>
+<body class="login-page">
+
+    <div class="container">
+        <div class="logo-circle">
+            <i class="fas fa-tooth"></i>
+        </div>
+<div class="switch-link-container">
+            <h2 class="inactive-link">เข้าสู่ระบบ</h2> 
+    
+        
+        <form id="login-form">
+            <div class="input-group">
+                <label>อีเมลผู้ใช้งาน</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="login-email" required placeholder="example@email.com">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>รหัสผ่าน</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="login-password" required placeholder="กรอกรหัสผ่านของคุณ">
+                </div>
+            </div>
+
+            <button type="submit" class="btn primary">
+                เข้าสู่ระบบ <i class="fas fa-sign-in-alt"></i>
+            </button>
+            
+            <p id="status-msg"></p>
+
+            <div class="footer-links">
+                ยังไม่มีบัญชี? <a href="register.html">ลงทะเบียนสมาชิก</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('login-form');
+        const statusMsg = document.getElementById('status-msg');
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            // แสดงสถานะกำลังประมวลผล
+            statusMsg.className = '';
+            statusMsg.style.color = "#4a90e2";
+            statusMsg.innerText = "🔄 กำลังตรวจสอบ...";
+
+            try {
+              const response = await fetch('http://localhost:3000/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email, password })
+});
+
+const data = await response.json();
+
+if (!response.ok) {
+  statusMsg.className = 'error';
+  statusMsg.innerText = typeof data === 'string' ? "❌ " + data : "❌ เกิดข้อผิดพลาดในการเข้าสู่ระบบ";
+  return;
+}
+
+statusMsg.className = 'success';
+statusMsg.innerText = "✅ ล็อกอินสำเร็จ!";
+localStorage.setItem('user', JSON.stringify(data.user));
+setTimeout(() => {
+  alert("ยินดีต้อนรับคุณ " + data.user.firstname);
+  console.log(data.user);
+
+  if (data.user.role === 'doctor') {
+    window.location.href = "doctor.html";
+  } 
+  else if (data.user.role === 'admin') {
+    window.location.href = "admin.html";
+  } 
+  else if (data.user.role === 'reception') {
+    window.location.href = "reception.html";
+  } 
+  else {
+    window.location.href = "index.html"; // คนไข้
+  }}, 1000);
+            } catch (error) {
+                statusMsg.className = 'error';
+                statusMsg.innerText = "❌ ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์";
+            }
+        }); 
+    </script>
+</body>
+</html>

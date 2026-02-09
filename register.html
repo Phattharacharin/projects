@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+   <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ลงทะเบียน ขั้นตอนที่ 1</title>
+    <link rel="stylesheet" href="register.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+  <body class="register-page">
+
+    <div class="container">
+        <h2 class="form-title">ลงทะเบียนผู้ใช้งานใหม่ (1/2) </h2>
+
+            <div class="info-note">
+            <i class="fas fa-info-circle"></i>
+
+        </div>
+
+        <div class="switch-link-container">
+            <a href="login.html" class="inactive-link">เข้าสู่ระบบ</a> | 
+            <span class="active-link" aria-current="page">ลงทะเบียน</span>
+        </div>
+        
+        <form id="register-form">
+            <div id="reg-step-1">
+                <h3>ขั้นตอนที่ 1: กรอกข้อมูลส่วนตัว</h3>
+
+                <div class="input-group">
+                    <label for="reg-firstname">ชื่อ</label>
+                    <input type="text" id="reg-firstname" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="reg-lastname">นามสกุล</label>
+                    <input type="text" id="reg-lastname" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="reg-email">อีเมล</label>
+                    <input type="email" id="reg-email" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="reg-password">รหัสผ่านเข้าเว็บไซต์</label>
+                    <input type="password" id="reg-password" required placeholder="ตั้งรหัสผ่าน 8 ตัวขึ้นไป">
+                </div>
+
+                <div class="input-group">
+                    <label for="reg-phone">เบอร์โทรศัพท์ </label>
+                    <input type="tel" id="reg-phone" required pattern="[0-9]{10}" placeholder="08XXXXXXXX">
+                </div>
+
+                <button type="button" class="btn primary" onclick="register()">
+                    <i class="fas fa-paper-plane"></i> ยืนยันข้อมูลและส่ง OTP
+                </button>
+            </div>
+        </form>
+    </div>
+
+  <script>
+async function register() {
+  const firstname = document.getElementById('reg-firstname').value;
+  const lastname  = document.getElementById('reg-lastname').value;
+  const email     = document.getElementById('reg-email').value;
+  const password  = document.getElementById('reg-password').value;
+  const phone     = document.getElementById('reg-phone').value;
+
+  try {
+    // 1️⃣ สมัคร
+    const res = await fetch('http://localhost:3000/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        firstname,
+        lastname,
+        email,
+        password,
+        phone
+      })
+    });
+
+    const text = await res.text();
+    if (!res.ok) {
+      alert('❌ ' + text);
+      return;
+    }
+
+    // 2️⃣ ส่ง OTP
+    const otpRes = await fetch('http://localhost:3000/send-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    });
+
+    if (!otpRes.ok) {
+      const otpText = await otpRes.text();
+      alert('❌ ' + otpText);
+      return;
+    }
+
+    alert('✅ ส่ง OTP แล้ว');
+    window.location.href = 'verify.html?email=' + encodeURIComponent(email);
+
+  } catch (err) {
+    console.error(err);
+    alert('❌ ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์');
+  }
+}
+</script>
+</body>
+</html>

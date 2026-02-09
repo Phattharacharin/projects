@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>หน้าหลัก - สุภัทรคลินิก</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-logo">🦷 คลินิกสุภัทร</div>
+        <div class="nav-links">
+            <a href="index.html">หน้าหลัก</a>
+            <a href="#">ประวัตินัดหมาย</a>
+            <a href="#">ติดต่อเรา</a>
+            <a href="#" class="logout">ออกจากระบบ</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="user-welcome-banner">
+            <h1>สวัสดี <span id="username">ผู้ใช้งาน</span></h1>
+            <p>วันนี้คุณต้องการรับบริการด้านไหนดี</p>
+        </div>
+
+        <div class="quick-info-grid">
+            <div class="info-card-item">
+                <i class="fas fa-calendar-alt icon-blue"></i>
+                <h3>นัดหมายเร็วๆ นี้</h3>
+                <p>ไม่มีนัดหมายในวันนี้</p>
+            </div>
+            <div class="info-card-item">
+                <i class="fas fa-map-marker-alt icon-pink"></i>
+                <h3>ข้อมูลคลินิก</h3>
+                <p>จันทร์-ศุกร์ 09:00 - 19:00 น.<br>เสาร์ 10:00 - 19:00 น.</p>
+            </div>
+            <div class="info-card-item">
+                <i class="fas fa-phone-alt icon-red"></i>
+                <h3>ติดต่อ</h3>
+                <p>085-493-5361</p>
+            </div>
+        </div>
+
+        <h2 class="section-title">บริการของเรา</h2>
+        <div class="services-info-grid">
+            <div class="service-card" onclick="location.href='service-booking.html?service=scaling'">
+                <h3>ขูดหินปูน</h3>
+                <p>เริ่มต้น 800 บาท</p>
+            </div>
+            <div class="service-card" onclick="location.href='service-booking.html?service=filling'">
+                <h3>อุดฟัน</h3>
+                <p>เริ่มต้น 1,200 บาท</p>
+            </div>
+            <div class="service-card" onclick="location.href='service-booking.html?service=extraction'">
+                <h3>ถอนฟัน</h3>
+                <p>เริ่มต้น 500 บาท</p>
+            </div>
+            <div class="service-card" onclick="location.href='service-booking.html?service=whitening'">
+                <h3>ฟอกสีฟัน</h3>
+                <p>เริ่มต้น 3,000 บาท</p>
+            </div>
+            <div class="service-card" onclick="location.href='service-booking.html?service=implant'">
+                <h3>รากฟันเทียม</h3>
+                <p>เริ่มต้น 35,000 บาท</p>
+            </div>
+            <div class="service-card" onclick="location.href='service-booking.html?service=orthodontics'">
+                <h3>จัดฟัน</h3>
+                <p>เริ่มต้น 5,000 บาท</p>
+            </div>
+            <div class="service-card" onclick="location.href='service-booking.html?service=wisdom-tooth'">
+                <h3>ผ่าฟันคุด</h3>
+                <p>เริ่มต้น 2,000-4,000 บาท</p>
+            </div>
+            <div class="service-card" onclick="location.href='service-booking.html?service=clearance'">
+                <h3>เคลียร์ช่องปากเพื่อจัดฟัน</h3>
+                <p>เริ่มต้น 500 บาท</p>
+            </div>
+            <div class="service-card" onclick="location.href='service-booking.html?service=checkup'">
+                <h3>ตรวจสุขภาพช่องปาก</h3>
+                <p>เริ่มต้น 500 บาท</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        const user = JSON.parse(localStorage.getItem('user'));
+            document.getElementById('username').innerText = user?.firstname || 'ผู้ใช้งาน';
+ </script>
+</body>
+</html>
